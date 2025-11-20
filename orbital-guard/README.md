@@ -46,6 +46,8 @@ Beautiful Material You design with 3D wireframe globe and smooth animations.
 - **Right Panel**: Satellite info, mission briefs, ground station passes
 - **Bottom**: Time scrubber and collision alert strip
 
+![Screenshot of the working page](/Users/atharvadeo/Desktop/PROF/Hackies/SkyHacks/Screenshot 2025-11-20 at 10.36.10 PM.png)
+
 ### Collision Warning Example
 ```
 🛡️ PROXIMITY ALERTS (6)
