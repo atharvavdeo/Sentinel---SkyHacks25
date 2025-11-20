@@ -12,23 +12,9 @@ const LandingGlobe = () => {
                 <pointLight position={[10, 10, 10]} intensity={2} />
 
                 <Suspense fallback={null}>
-                    <group position={[0, 0, 0]} rotation={[0, 0, 0.2]}> {/* Centered with tilt */}
-                        <mesh scale={[2, 2, 2]}> {/* Adjusted scale */}
-                            <sphereGeometry args={[4.5, 48, 48]} />
-                            <meshStandardMaterial
-                                color="#ffffff"
-                                emissive="#ffffff"
-                                emissiveIntensity={0.1}
-                                wireframe
-                                transparent
-                                opacity={0.2}
-                            />
-                        </mesh>
-                        {/* Inner solid core for contrast */}
-                        <mesh scale={[1.95, 1.95, 1.95]}>
-                            <sphereGeometry args={[4.5, 64, 64]} />
-                            <meshBasicMaterial color="#050505" />
-                        </mesh>
+                    <group position={[0, 0, 0]} rotation={[0, 0, 0.2]}>
+                        <Globe />
+                        <Atmosphere />
                     </group>
                 </Suspense>
 

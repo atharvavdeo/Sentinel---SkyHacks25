@@ -151,7 +151,7 @@ const Landing = ({ onInitialize }) => {
                         transform: 'translateY(-50%)',
                         width: '60vw',
                         height: '100vh',
-                        zIndex: -1,
+                        zIndex: 0,
                         pointerEvents: 'all',
                         overflow: 'visible'
                     }}
