@@ -34,18 +34,23 @@ const Landing = ({ onInitialize }) => {
             display: 'flex',
             flexDirection: 'column'
         }}>
-            {/* Navigation Bar */}
+            {/* Navigation Bar - Centered Glassmorphic */}
             <nav style={{
                 position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                padding: '16px 24px',
+                top: '20px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                padding: '12px 32px',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                gap: '48px',
                 zIndex: 10,
-                boxSizing: 'border-box'
+                background: 'rgba(30, 30, 30, 0.7)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '50px',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
             }}>
                 <div style={{ fontSize: '1.2rem', fontWeight: 700, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span className="material-symbols-outlined" style={{ fontSize: '24px', color: '#4285F4' }}>satellite_alt</span>
@@ -56,10 +61,10 @@ const Landing = ({ onInitialize }) => {
                         <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>info</span>
                         About Us
                     </span>
-                    <span style={{ cursor: 'pointer', transition: 'color 0.2s', display: 'flex', alignItems: 'center', gap: '4px' }} className="hover-text">
+                    <a href="https://github.com/atharvavdeo/Sentinel---SkyHacks25" target="_blank" rel="noopener noreferrer" style={{ cursor: 'pointer', transition: 'color 0.2s', display: 'flex', alignItems: 'center', gap: '4px', textDecoration: 'none', color: 'rgba(255,255,255,0.8)' }} className="hover-text">
                         <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>code</span>
                         GitHub
-                    </span>
+                    </a>
                     <span style={{ cursor: 'pointer', transition: 'color 0.2s', display: 'flex', alignItems: 'center', gap: '4px' }} className="hover-text">
                         <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>group</span>
                         Community
