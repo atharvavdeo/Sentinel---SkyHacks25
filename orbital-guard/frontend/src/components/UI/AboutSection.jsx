@@ -1,7 +1,9 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const AboutSection = () => {
+    const [activeSection, setActiveSection] = useState(0);
+
     const sections = [
         {
             title: "An Agent-First Experience",
@@ -21,43 +23,29 @@ const AboutSection = () => {
     ];
 
     return (
-        <div
-            style={{
-                background: '#000000',
-                color: '#ffffff',
-                padding: '80px 0',
+        <div style={{ background: '#000000', color: '#ffffff', position: 'relative' }}>
+            <div style={{
+                display: 'flex',
+                maxWidth: '1200px',
+                margin: '0 auto',
+                padding: '0 20px',
                 position: 'relative'
-            }}
-        >
-            {sections.map((section, index) => {
-                const ref = useRef(null);
-                const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-                return (
-                    <motion.section
-                        key={index}
-                        ref={ref}
-                        initial={{ opacity: 0, y: 50 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        style={{
-                            minHeight: '80vh',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            padding: '40px 8%',
-                            gap: '80px',
-                            flexDirection: index % 2 === 0 ? 'row' : 'row-reverse' // Alternating layout
-                        }}
-                    >
-                        {/* Content */}
+            }}>
+                {/* Left Column: Scrollable Text */}
+                <div style={{ width: '50%', paddingBottom: '100px' }}>
+                    {sections.map((section, index) => (
                         <motion.div
-                            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
+                            key={index}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ amount: 0.5 }}
+                            onViewportEnter={() => setActiveSection(index)}
                             style={{
-                                flex: 1,
-                                maxWidth: '600px'
+                                minHeight: '100vh',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                paddingRight: '40px'
                             }}
                         >
                             <h2 style={{
@@ -92,40 +80,58 @@ const AboutSection = () => {
                                     color: 'white',
                                     cursor: 'pointer',
                                     backdropFilter: 'blur(10px)',
-                                    transition: 'all 0.3s ease'
+                                    width: 'fit-content'
                                 }}
                             >
                                 Explore Product
                             </motion.button>
                         </motion.div>
+                    ))}
+                </div>
 
-                        {/* Image */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-                            transition={{ duration: 0.8, delay: 0.4 }}
-                            style={{
-                                flex: 1,
-                                maxWidth: '600px',
-                                height: '400px',
-                                borderRadius: '16px',
-                                overflow: 'hidden',
-                                boxShadow: '0 20px 60px rgba(0,0,0,0.5)'
-                            }}
-                        >
-                            <img
+                {/* Right Column: Sticky Image */}
+                <div style={{
+                    width: '50%',
+                    height: '100vh',
+                    position: 'sticky',
+                    top: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <div style={{
+                        width: '100%',
+                        height: '500px',
+                        borderRadius: '24px',
+                        overflow: 'hidden',
+                        position: 'relative',
+                        boxShadow: '0 20px 60px rgba(0,0,0,0.5)'
+                    }}>
+                        {sections.map((section, index) => (
+                            <motion.img
+                                key={index}
                                 src={section.image}
                                 alt={section.title}
+                                initial={{ opacity: 0, scale: 1.1 }}
+                                animate={{
+                                    opacity: activeSection === index ? 1 : 0,
+                                    scale: activeSection === index ? 1 : 1.1,
+                                    zIndex: activeSection === index ? 10 : 0
+                                }}
+                                transition={{ duration: 0.6 }}
                                 style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
                                     width: '100%',
                                     height: '100%',
                                     objectFit: 'cover'
                                 }}
                             />
-                        </motion.div>
-                    </motion.section>
-                );
-            })}
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

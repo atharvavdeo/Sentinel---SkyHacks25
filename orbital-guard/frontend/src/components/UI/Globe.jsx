@@ -184,7 +184,7 @@ export function World(props) {
     const { globeConfig } = props;
 
     return (
-        <Canvas camera={{ fov: 50, aspect: aspect, near: 180, far: 1800, position: [0, 0, cameraZ] }}>
+        <Canvas camera={{ fov: 50, aspect: aspect, near: 180, far: 1800, position: [0, 0, 200] }}>
             <fog attach="fog" color={0xffffff} near={400} far={2000} />
             <ambientLight color={globeConfig.ambientLight} intensity={0.6} />
             <directionalLight

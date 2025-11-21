@@ -92,18 +92,7 @@ const InfoPanel = ({ selectedSat, currentTime }) => {
             </div>
 
             {/* Satellite Description */}
-            <div style={{
-                marginTop: '10px',
-                padding: '10px',
-                background: 'rgba(255,255,255,0.05)',
-                borderRadius: '8px',
-                fontSize: '0.85rem',
-                lineHeight: '1.4',
-                color: '#ccc',
-                textAlign: 'center'
-            }}>
-                {getSatelliteDescription(satName, satType)}
-            </div>
+
 
             <div style={{ fontSize: '0.8rem', opacity: 0.5, fontFamily: 'var(--font-mono)', marginTop: '5px' }}>
                 UTC: {currentTime ? currentTime.toISOString().replace('T', ' ').split('.')[0] : 'Loading...'}
@@ -113,14 +102,6 @@ const InfoPanel = ({ selectedSat, currentTime }) => {
 };
 
 // Helper to generate description
-const getSatelliteDescription = (name, type) => {
-    if (type === "Space Debris") return "Tracked fragment of space debris. Debris poses a collision risk to operational satellites and spacecraft.";
-    if (type === "Navigation/GPS") return "Part of a global navigation satellite system (GNSS) providing geolocation and time information to a GPS receiver anywhere on or near the Earth.";
-    if (type === "Communication Network") return "Part of a satellite constellation providing satellite internet access coverage to most of the Earth.";
-    if (type === "Weather/Climate") return "Monitors Earth's weather and climate patterns. Crucial for meteorology and environmental monitoring.";
-    if (type === "Space Station") return "A modular space station in low Earth orbit. It is a multinational collaborative project involving five participating space agencies.";
-    if (type === "Space Telescope") return "An observatory located in outer space to observe distant planets, galaxies and other astronomical objects.";
-    return "Operational satellite in Earth orbit. Tracking data provided by NORAD/Celestrak.";
-};
+
 
 export default InfoPanel;
