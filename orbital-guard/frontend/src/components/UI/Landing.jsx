@@ -33,7 +33,18 @@ const Landing = ({ onInitialize }) => {
             fontFamily: '"Google Sans", "Roboto", sans-serif',
             position: 'relative',
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            backgroundImage: `
+                radial-gradient(2px 2px at 20% 30%, white, transparent),
+                radial-gradient(2px 2px at 60% 70%, white, transparent),
+                radial-gradient(1px 1px at 50% 50%, white, transparent),
+                radial-gradient(1px 1px at 80% 10%, white, transparent),
+                radial-gradient(2px 2px at 90% 60%, white, transparent),
+                radial-gradient(1px 1px at 33% 50%, white, transparent),
+                radial-gradient(1px 1px at 66% 33%, white, transparent)
+            `,
+            backgroundSize: '200px 200px, 300px 300px, 250px 250px, 400px 400px, 350px 350px, 280px 280px, 320px 320px',
+            backgroundPosition: '0 0, 40px 60px, 130px 270px, 70px 100px, 200px 50px, 150px 180px, 90px 220px'
         }}>
             {/* Navigation Bar - Centered Glassmorphic */}
             <nav style={{
@@ -41,32 +52,32 @@ const Landing = ({ onInitialize }) => {
                 top: '20px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                padding: '12px 32px',
+                padding: '16px 48px',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                gap: '48px',
+                gap: '64px',
                 zIndex: 10,
                 background: 'rgba(30, 30, 30, 0.7)',
                 backdropFilter: 'blur(10px)',
                 border: '1px solid rgba(255, 255, 255, 0.1)',
                 borderRadius: '50px',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(66, 133, 244, 0.15)'
             }}>
                 <div style={{ fontSize: '1.2rem', fontWeight: 700, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span className="material-symbols-outlined" style={{ fontSize: '24px', color: '#4285F4' }}>satellite_alt</span>
                     Sentinel
                 </div>
-                <div style={{ display: 'flex', gap: '20px', fontSize: '0.85rem', fontWeight: 500, color: 'rgba(255,255,255,0.8)' }}>
-                    <span style={{ cursor: 'pointer', transition: 'color 0.2s', display: 'flex', alignItems: 'center', gap: '4px' }} className="hover-text">
+                <div style={{ display: 'flex', gap: '32px', fontSize: '0.9rem', fontWeight: 500, color: 'rgba(255,255,255,0.8)' }}>
+                    <span style={{ cursor: 'pointer', transition: 'all 0.3s', display: 'flex', alignItems: 'center', gap: '4px', padding: '8px 16px', borderRadius: '20px' }} className="nav-item">
                         <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>info</span>
                         About Us
                     </span>
-                    <a href="https://github.com/atharvavdeo/Sentinel---SkyHacks25" target="_blank" rel="noopener noreferrer" style={{ cursor: 'pointer', transition: 'color 0.2s', display: 'flex', alignItems: 'center', gap: '4px', textDecoration: 'none', color: 'rgba(255,255,255,0.8)' }} className="hover-text">
+                    <a href="https://github.com/atharvavdeo/Sentinel---SkyHacks25" target="_blank" rel="noopener noreferrer" style={{ cursor: 'pointer', transition: 'all 0.3s', display: 'flex', alignItems: 'center', gap: '4px', textDecoration: 'none', color: 'rgba(255,255,255,0.8)', padding: '8px 16px', borderRadius: '20px' }} className="nav-item">
                         <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>code</span>
                         GitHub
                     </a>
-                    <span style={{ cursor: 'pointer', transition: 'color 0.2s', display: 'flex', alignItems: 'center', gap: '4px' }} className="hover-text">
+                    <span style={{ cursor: 'pointer', transition: 'all 0.3s', display: 'flex', alignItems: 'center', gap: '4px', padding: '8px 16px', borderRadius: '20px' }} className="nav-item">
                         <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>group</span>
                         Community
                     </span>
@@ -82,17 +93,17 @@ const Landing = ({ onInitialize }) => {
                 padding: '120px 8% 80px',
                 position: 'relative',
                 zIndex: 5,
-                overflow: 'hidden',
+                overflow: 'visible',
                 gap: '40px'
             }}>
-                {/* Blue Blurred Gradient Background - Full Hero Section */}
+                {/* Blue Blurred Gradient Background - Enhanced for Globe Integration */}
                 <div style={{
                     position: 'absolute',
                     inset: 0,
                     background: `
+                        linear-gradient(90deg, #021d43 0%, #001028 50%, #000814 100%),
                         radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 70%, rgba(30, 58, 138, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.2) 0%, transparent 60%)
+                        radial-gradient(circle at 80% 50%, rgba(10, 20, 40, 0.8) 0%, transparent 60%)
                     `,
                     filter: 'blur(100px)',
                     zIndex: 0,
@@ -136,6 +147,7 @@ const Landing = ({ onInitialize }) => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={onInitialize}
+                        className="launch-button"
                         style={{
                             padding: '16px 40px',
                             fontSize: '1.1rem',
@@ -149,7 +161,8 @@ const Landing = ({ onInitialize }) => {
                             display: 'flex',
                             alignItems: 'center',
                             gap: '12px',
-                            marginBottom: '40px'
+                            marginBottom: '40px',
+                            transition: 'all 0.3s ease'
                         }}
                     >
                         Launch Tracker
@@ -168,7 +181,7 @@ const Landing = ({ onInitialize }) => {
                         }}
                     >
                         <div>
-                            <div style={{ fontSize: '2rem', fontWeight: 300 }}>2,000+</div>
+                            <div style={{ fontSize: '2rem', fontWeight: 300 }}>200+</div>
                             <div style={{ color: '#9aa0a6', fontSize: '0.9rem', marginTop: '4px' }}>Active Satellites</div>
                         </div>
                         <div>
@@ -182,20 +195,23 @@ const Landing = ({ onInitialize }) => {
                     </motion.div>
                 </div>
 
-                {/* Right Content - 3D Globe */}
+                {/* Right Content - 3D Globe - Floating Beyond Boundaries */}
                 <motion.div
                     initial={{ opacity: 0, x: 100 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1.2, delay: 0.2 }}
                     style={{
-                        flex: '1',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        position: 'relative',
-                        height: '80vh',
+                        position: 'absolute',
+                        right: '-10%',
+                        top: '50%',
+                        transform: 'translateY(-50%) scale(1.6)',
+                        width: '70vw',
+                        height: '70vw',
+                        maxWidth: '1000px',
+                        maxHeight: '1000px',
                         zIndex: 1,
-                        pointerEvents: 'all'
+                        pointerEvents: 'all',
+                        overflow: 'visible'
                     }}
                 >
                     <RealisticGlobe />
@@ -216,6 +232,15 @@ const Landing = ({ onInitialize }) => {
                 @keyframes blink {
                     0%, 100% { opacity: 1; }
                     50% { opacity: 0; }
+                }
+                .nav-item:hover {
+                    color: #ffffff !important;
+                    background: rgba(66, 133, 244, 0.15);
+                    box-shadow: 0 0 20px rgba(66, 133, 244, 0.3);
+                }
+                .launch-button:hover {
+                    box-shadow: 0 4px 25px rgba(66, 133, 244, 0.5), 0 0 40px rgba(66, 133, 244, 0.4) !important;
+                    filter: brightness(1.1);
                 }
             `}</style>
         </div>
