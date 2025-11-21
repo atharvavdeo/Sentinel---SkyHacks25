@@ -25,6 +25,7 @@ export const useSatelliteData = () => {
                 setInitialized(true); // Set initialized to true after data is fetched
             } catch (err) {
                 console.error("Failed to fetch data", err);
+                setLoading(false);
             }
         };
 

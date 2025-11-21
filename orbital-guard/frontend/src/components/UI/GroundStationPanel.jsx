@@ -1,21 +1,15 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-
-const STATIONS = [
-    { name: "Mauna Kea Obs.", location: "Hawaii, USA" },
-    { name: "Greenwich Obs.", location: "London, UK" },
-    { name: "Arecibo (Legacy)", location: "Puerto Rico" },
-    { name: "VLT (Paranal)", location: "Chile" },
-    { name: "Canberra DSN", location: "Australia" },
-    { name: "Madrid DSN", location: "Spain" },
-    { name: "Goldstone DSN", location: "California, USA" },
-    { name: "Sutherland", location: "South Africa" },
-    { name: "Kourou Station", location: "French Guiana" },
-    { name: "Esrange", location: "Sweden" }
-];
+import React, { useMemo } from 'react';
+import { groundStations } from '../../data/groundStations';
 
 const GroundStationPanel = ({ selectedSat, currentTime }) => {
     if (!selectedSat) return null;
+
+    // Randomize 5-7 stations for this satellite pass
+    const activeStations = useMemo(() => {
+        const count = Math.floor(Math.random() * 3) + 5; // 5 to 7
+        const shuffled = [...groundStations].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
+    }, [selectedSat]); // Re-roll when satellite changes
 
     // Mock ETA generation based on time
     const getETA = (index) => {
@@ -31,7 +25,7 @@ const GroundStationPanel = ({ selectedSat, currentTime }) => {
                 Ground Station Passes
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {STATIONS.map((station, i) => (
+                {activeStations.map((station, i) => (
                     <div key={i} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', paddingBottom: '8px', borderBottom: '1px solid var(--glass-border)' }}>
                         <span style={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{station.name}</span>
                         <span style={{ color: 'var(--md-sys-color-primary)', fontFamily: 'var(--font-mono)', fontWeight: 500 }}>

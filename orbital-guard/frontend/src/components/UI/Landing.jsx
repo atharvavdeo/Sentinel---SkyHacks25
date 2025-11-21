@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import LandingGlobe from './LandingGlobe';
+import LandingGlobe3D from './LandingGlobe3D';
+import { GlobeDemo } from './GlobeDemo';
+import AboutSection from './AboutSection';
+import Footer from './Footer';
 
 const TypingText = ({ text, delay = 0 }) => {
     const [displayedText, setDisplayedText] = useState('');
@@ -24,12 +27,10 @@ const TypingText = ({ text, delay = 0 }) => {
 const Landing = ({ onInitialize }) => {
     return (
         <div style={{
-            width: '100vw',
-            height: '100vh',
+            width: '100%',
             background: '#000000',
             color: '#ffffff',
             fontFamily: '"Google Sans", "Roboto", sans-serif',
-            overflow: 'hidden',
             position: 'relative',
             display: 'flex',
             flexDirection: 'column'
@@ -74,16 +75,32 @@ const Landing = ({ onInitialize }) => {
 
             {/* Hero Section */}
             <main style={{
-                flex: 1,
+                minHeight: '100vh',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: '0 8%',
+                padding: '120px 8% 80px',
                 position: 'relative',
-                zIndex: 5
+                zIndex: 5,
+                overflow: 'hidden',
+                gap: '40px'
             }}>
+                {/* Blue Blurred Gradient Background - Full Hero Section */}
+                <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: `
+                        radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(30, 58, 138, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.2) 0%, transparent 60%)
+                    `,
+                    filter: 'blur(100px)',
+                    zIndex: 0,
+                    pointerEvents: 'none'
+                }}></div>
+
                 {/* Left Content */}
-                <div style={{ maxWidth: '600px' }}>
+                <div style={{ flex: '1', maxWidth: '600px', position: 'relative', zIndex: 1 }}>
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -131,12 +148,38 @@ const Landing = ({ onInitialize }) => {
                             boxShadow: '0 4px 15px rgba(66, 133, 244, 0.3)',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '12px'
+                            gap: '12px',
+                            marginBottom: '40px'
                         }}
                     >
                         Launch Tracker
                         <span className="material-symbols-outlined">arrow_forward</span>
                     </motion.button>
+
+                    {/* Stats below button */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 2, duration: 0.5 }}
+                        style={{
+                            display: 'flex',
+                            gap: '40px',
+                            flexWrap: 'wrap'
+                        }}
+                    >
+                        <div>
+                            <div style={{ fontSize: '2rem', fontWeight: 300 }}>2,000+</div>
+                            <div style={{ color: '#9aa0a6', fontSize: '0.9rem', marginTop: '4px' }}>Active Satellites</div>
+                        </div>
+                        <div>
+                            <div style={{ fontSize: '2rem', fontWeight: 300 }}>15,000+</div>
+                            <div style={{ color: '#9aa0a6', fontSize: '0.9rem', marginTop: '4px' }}>Debris Objects</div>
+                        </div>
+                        <div>
+                            <div style={{ fontSize: '2rem', fontWeight: 300 }}>Real-time</div>
+                            <div style={{ color: '#9aa0a6', fontSize: '0.9rem', marginTop: '4px' }}>Orbital Physics</div>
+                        </div>
+                    </motion.div>
                 </div>
 
                 {/* Right Content - 3D Globe */}
@@ -145,43 +188,26 @@ const Landing = ({ onInitialize }) => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1.2, delay: 0.2 }}
                     style={{
-                        position: 'absolute',
-                        right: '0',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        width: '60vw',
-                        height: '100vh',
-                        zIndex: 0,
-                        pointerEvents: 'all',
-                        overflow: 'visible'
+                        flex: '1',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        position: 'relative',
+                        height: '80vh',
+                        zIndex: 1,
+                        pointerEvents: 'all'
                     }}
                 >
-                    <LandingGlobe />
+                    <GlobeDemo />
                 </motion.div>
             </main>
 
-            {/* Footer Stats */}
-            <footer style={{
-                padding: '40px 8%',
-                display: 'flex',
-                gap: '80px',
-                borderTop: '1px solid rgba(255,255,255,0.1)',
-                background: 'rgba(0,0,0,0.5)',
-                backdropFilter: 'blur(10px)'
-            }}>
-                <div>
-                    <div style={{ fontSize: '2rem', fontWeight: 300 }}>2,000+</div>
-                    <div style={{ color: '#9aa0a6', fontSize: '0.9rem', marginTop: '4px' }}>Active Satellites</div>
-                </div>
-                <div>
-                    <div style={{ fontSize: '2rem', fontWeight: 300 }}>15,000+</div>
-                    <div style={{ color: '#9aa0a6', fontSize: '0.9rem', marginTop: '4px' }}>Debris Objects</div>
-                </div>
-                <div>
-                    <div style={{ fontSize: '2rem', fontWeight: 300 }}>Real-time</div>
-                    <div style={{ color: '#9aa0a6', fontSize: '0.9rem', marginTop: '4px' }}>Orbital Physics</div>
-                </div>
-            </footer>
+
+            {/* About Section */}
+            <AboutSection />
+
+            {/* Footer */}
+            <Footer />
 
             <style>{`
                 .cursor {

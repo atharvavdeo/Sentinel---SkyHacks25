@@ -1,48 +1,46 @@
 import React, { useMemo } from 'react';
-import { Line } from '@react-three/drei';
 import * as THREE from 'three';
 
-const SCALE_FACTOR = 5 / 6371;
+const OrbitPath = ({ points, color = "#ff007a" }) => {
+    const geometry = useMemo(() => {
+        try {
+            if (!points || points.length < 2) return null;
 
-const OrbitPath = ({ points, color = '#ffffff' }) => {
-    const scaledPoints = useMemo(() => {
-        return points.map(p => new THREE.Vector3(
-            p.x * SCALE_FACTOR,
-            p.z * SCALE_FACTOR,
-            -p.y * SCALE_FACTOR
-        ));
+            const positions = new Float32Array(points.length * 3);
+            points.forEach((point, i) => {
+                if (point && Number.isFinite(point.x) && Number.isFinite(point.y) && Number.isFinite(point.z)) {
+                    positions[i * 3] = point.x;
+                    positions[i * 3 + 1] = point.y;
+                    positions[i * 3 + 2] = point.z;
+                } else {
+                    positions[i * 3] = 0;
+                    positions[i * 3 + 1] = 0;
+                    positions[i * 3 + 2] = 0;
+                }
+            });
+
+            const geom = new THREE.BufferGeometry();
+            geom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            return geom;
+        } catch (error) {
+            console.error('OrbitPath geometry error:', error);
+            return null;
+        }
     }, [points]);
 
-    if (!points || points.length < 2) return null;
+    if (!geometry) return null;
 
-    // Split points into Past (first half) and Future (second half)
-    // Assuming points are ordered chronologically and center is "now"
-    // Actually, App.jsx generates -60 to +60 mins. So index 60 is "now".
-
-    const midPoint = Math.floor(points.length / 2);
-    const pastPoints = scaledPoints.slice(0, midPoint + 1);
-    const futurePoints = scaledPoints.slice(midPoint);
-
-    return (
-        <group>
-            {/* Past Trail - Cool Color */}
-            <Line
-                points={pastPoints}
-                color="#00ccff" // Cyan
-                lineWidth={2}
-                transparent
-                opacity={0.6}
-            />
-            {/* Future Trail - Warm Color */}
-            <Line
-                points={futurePoints}
-                color="#ffaa00" // Orange
-                lineWidth={2}
-                transparent
-                opacity={0.6}
-            />
-        </group>
-    );
+    try {
+        return (
+            <line geometry={geometry} renderOrder={999}>
+                <lineBasicMaterial color={color} transparent opacity={1} linewidth={3} depthTest={false} />
+            </line>
+        );
+    } catch (error) {
+        console.error('OrbitPath render error:', error);
+        return null;
+    }
 };
 
 export default OrbitPath;
+

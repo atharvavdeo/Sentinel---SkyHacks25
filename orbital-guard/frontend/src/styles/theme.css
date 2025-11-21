@@ -31,8 +31,15 @@ body {
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
   font-family: var(--font-main);
-  overflow: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+body.landing-active {
+  overflow: auto;
+}
+
+body.tracker-active {
+  overflow: hidden;
 }
 
 /* Material Surface Card Style */

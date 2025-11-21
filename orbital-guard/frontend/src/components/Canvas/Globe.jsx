@@ -1,42 +1,41 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 
 const Globe = ({ customRotation }) => {
     const meshRef = useRef();
-
-    // Load Textures (Using public URLs for demo, ideally local assets)
-    // Blue Marble textures
-    const [colorMap, bumpMap, specularMap] = useLoader(THREE.TextureLoader, [
-        'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
-        'https://unpkg.com/three-globe/example/img/earth-topology.png',
-        'https://unpkg.com/three-globe/example/img/earth-water.png'
+    // Use high-res textures from a reliable source (NASA or similar via reliable CDN)
+    // Fallback to simple colors if textures fail
+    const [colorMap, bumpMap, specularMap, lightsMap] = useLoader(THREE.TextureLoader, [
+        'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg',
+        'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_normal_2048.jpg',
+        'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_specular_2048.jpg',
+        'https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_lights_2048.png'
     ]);
 
-    const material = useMemo(() => {
-        return new THREE.MeshPhongMaterial({
-            map: colorMap,
-            bumpMap: bumpMap,
-            bumpScale: 0.05,
-            specularMap: specularMap,
-            specular: new THREE.Color('grey'),
-            shininess: 10
-        });
-    }, [colorMap, bumpMap, specularMap]);
-
     useFrame(() => {
-        if (meshRef.current && customRotation === undefined) {
-            meshRef.current.rotation.y += 0.0005;
-        }
-        if (meshRef.current && customRotation !== undefined) {
-            meshRef.current.rotation.y = customRotation;
+        if (meshRef.current) {
+            if (customRotation !== undefined) {
+                meshRef.current.rotation.y = customRotation;
+            } else {
+                meshRef.current.rotation.y += 0.0005;
+            }
         }
     });
 
     return (
         <mesh ref={meshRef} scale={[1, 1, 1]}>
             <sphereGeometry args={[5, 64, 64]} />
-            <primitive object={material} attach="material" />
+            <meshPhongMaterial
+                map={colorMap}
+                normalMap={bumpMap}
+                specularMap={specularMap}
+                specular={new THREE.Color('grey')}
+                shininess={5}
+                emissiveMap={lightsMap}
+                emissive={new THREE.Color(0xffff88)}
+                emissiveIntensity={0.5}
+            />
         </mesh>
     );
 };

@@ -118,7 +118,9 @@ const HazardList = ({ hazards }) => {
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--md-sys-color-on-surface-variant)' }}>
                             <span>Dist: <span style={{ color: borderColor, fontWeight: 600 }}>{(h.distance).toFixed(2)} km</span></span>
+                            {h.distance < 1 && <span style={{ color: '#ff0000', fontWeight: 900, animation: 'blink 1s infinite' }}>⚠️ COLLISION</span>}
                             <span>T-{h.timeToCollision ? formatTime(h.timeToCollision) : '??:??'}</span>
+                            <style>{`@keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }`}</style>
                         </div>
                     </motion.div>
                 );
