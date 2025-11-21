@@ -380,9 +380,9 @@ function App() {
                         <div style={{ pointerEvents: 'auto', display: 'flex', flexDirection: 'column', width: '100%' }}>
                             {/* Time Slider - Positioned Bottom LEFT */}
                             <div style={{
-                                position: 'fixed',
+                                position: 'absolute',
                                 bottom: hazards && hazards.length > 0 ? '80px' : '20px', // Above bar when hazards exist
-                                left: '32px', // LEFT SIDE!
+                                right: '50px', // RIGHT SIDE!
                                 width: '320px',
                                 maxWidth: '90vw',
                                 zIndex: 60 // Above hazard bar
@@ -434,7 +434,13 @@ function App() {
                             )}
                         </group>
 
-                        <OrbitControls enablePan={false} minDistance={7} maxDistance={30} />
+                        <OrbitControls 
+                            enablePan={false} 
+                            minDistance={7} 
+                            maxDistance={30} 
+                            enableRotate={true}
+                            enableZoom={true}
+                        />
 
                         {postProcessingEnabled && (
                             <SafeEffectComposer>

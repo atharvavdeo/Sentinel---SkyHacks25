@@ -26,17 +26,12 @@ const TimeSlider = ({ currentTime, onTimeChange, isPlaying, onTogglePlay }) => {
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             style={{
-                position: 'absolute',
-                bottom: '30px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: '600px',
+                width: '100%',
                 padding: '20px',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '10px',
-                zIndex: 20
+                gap: '10px'
             }}
         >
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', width: '100%' }}>
@@ -55,7 +50,15 @@ const TimeSlider = ({ currentTime, onTimeChange, isPlaying, onTogglePlay }) => {
                         justifyContent: 'center'
                     }}
                 >
-                    {isPlaying ? '⏸' : '▶'}
+                    {isPlaying ? (
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                        </svg>
+                    ) : (
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    )}
                 </button>
 
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '5px' }}>

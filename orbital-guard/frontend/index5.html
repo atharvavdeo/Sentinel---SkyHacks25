@@ -9,20 +9,20 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&family=Orbitron:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:wght@400;600;700&display=swap');
 
         :root {
-            --primary-color: #00d8ff;
-            --secondary-color: #ff9800;
-            --danger-color: #ff5252;
-            --success-color: #00ff7f;
-            --warning-color: #ffeb3b;
+            --primary-color: #00C8FF;
+            --secondary-color: #006C99;
+            --danger-color: #FF365D;
+            --success-color: #00C8FF;
+            --warning-color: #00C8FF;
             --bg-color: #03050a;
-            --panel-bg: rgba(10, 20, 35, 0.85);
-            --border-color: rgba(0, 216, 255, 0.2);
-            --border-glow: rgba(0, 216, 255, 0.5);
-            --font-family-ui: 'Roboto Mono', monospace;
-            --font-family-title: 'Orbitron', sans-serif;
+            --panel-bg: rgba(10, 20, 40, 0.55);
+            --text-color: #C7D2E0;
+            --border-color: rgba(0, 200, 255, 0.15);
+            --border-glow: rgba(0, 200, 255, 0.35);
+            --font-family: 'Cascadia Code', monospace;
         }
 
         * {
@@ -35,9 +35,9 @@
             height: 100%;
             width: 100%;
             overflow: hidden;
-            font-family: var(--font-family-ui);
+            font-family: var(--font-family);
             background: var(--bg-color);
-            color: #e0e0e0;
+            color: var(--text-color);
         }
         
         body::after {
@@ -81,14 +81,15 @@
 
         .satellite-label {
             position: absolute;
-            color: white;
-            font-family: var(--font-family-ui);
+            color: var(--text-color);
+            font-family: var(--font-family);
             font-size: 12px;
-            padding: 2px 5px;
-            background: rgba(0,0,0,0.6);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
-            transform: translate(-50%, 10px); /* Position it nicely below the point */
+            padding: 4px 8px;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            backdrop-filter: blur(6px);
+            transform: translate(-50%, 10px);
             white-space: nowrap;
             will-change: transform;
             transition: opacity 0.2s;
@@ -101,9 +102,9 @@
             left: 0;
             right: 0;
             height: 60px;
-            background: linear-gradient(to right, rgba(3, 5, 10, 0.9), rgba(15, 25, 45, 0.9));
+            background: var(--panel-bg);
             border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 2px 10px var(--border-glow);
+            backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
             padding: 0 30px;
@@ -111,20 +112,19 @@
         }
 
         #header h1 {
-            font-family: var(--font-family-title);
-            font-size: 20px;
+            font-family: var(--font-family);
+            font-size: 18px;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             color: var(--primary-color);
-            text-shadow: 0 0 8px var(--border-glow);
         }
 
         #header .status {
             margin-left: auto;
             display: flex;
             gap: 30px;
-            font-size: 14px;
-            font-family: var(--font-family-ui);
+            font-size: 13px;
+            font-family: var(--font-family);
         }
 
         #header .status-item {
@@ -134,11 +134,10 @@
         }
 
         #header .status-indicator {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: var(--success-color);
-            box-shadow: 0 0 10px var(--success-color);
+            background: var(--primary-color);
             animation: pulse 1.5s infinite;
         }
 
@@ -151,35 +150,11 @@
             position: absolute;
             background: var(--panel-bg);
             border: 1px solid var(--border-color);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
-            border-radius: 0; /* Sharp corners */
-            padding: 20px;
+            backdrop-filter: blur(6px);
+            border-radius: 8px;
+            padding: 16px 20px;
             z-index: 500;
         }
-        
-        .panel::before, .panel::after {
-            content: '';
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            border-color: var(--primary-color);
-            border-style: solid;
-        }
-
-        .panel::before { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
-        .panel::after { top: -2px; right: -2px; border-width: 2px 2px 0 0; }
-        
-        .panel .content-wrapper::before, .panel .content-wrapper::after {
-            content: '';
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            border-color: var(--primary-color);
-            border-style: solid;
-        }
-        .panel .content-wrapper::before { bottom: -2px; left: -2px; border-width: 0 0 2px 2px; }
-        .panel .content-wrapper::after { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
 
 
         #leftPanel {
@@ -202,26 +177,15 @@
         .section:last-child { margin-bottom: 0; }
 
         .section-title {
-            font-family: var(--font-family-title);
-            font-size: 14px;
-            font-weight: 400;
+            font-family: var(--font-family);
+            font-size: 13px;
+            font-weight: 700;
             color: var(--primary-color);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
             padding-bottom: 8px;
             border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-        }
-        
-        .section-title::before {
-            content: '';
-            width: 4px;
-            height: 16px;
-            background: var(--primary-color);
-            margin-right: 10px;
-            box-shadow: 0 0 5px var(--primary-color);
         }
 
         .form-group { margin-bottom: 12px; }
@@ -233,75 +197,81 @@
         label {
             display: block;
             font-size: 11px;
-            font-weight: 700;
-            color: #b0b0b0;
+            font-weight: 600;
+            color: var(--text-color);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             margin-bottom: 6px;
+            font-family: var(--font-family);
         }
 
         input, select {
             width: 100%;
-            padding: 10px 12px;
-            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            background: rgba(0, 30, 60, 0.6);
             border: 1px solid var(--border-color);
-            color: #e0e0e0;
-            font-size: 14px;
-            font-family: var(--font-family-ui);
-            transition: all 0.3s ease;
+            border-radius: 6px;
+            color: var(--text-color);
+            font-size: 13px;
+            font-family: var(--font-family);
+            transition: all 0.2s ease;
         }
 
         input:focus, select:focus {
             outline: none;
-            border-color: var(--primary-color);
-            background: rgba(0, 216, 255, 0.1);
-            box-shadow: 0 0 10px var(--border-glow);
+            border-color: var(--border-glow);
+            background: rgba(0, 30, 60, 0.8);
         }
 
         button {
             width: 100%;
-            padding: 12px 16px;
-            background: transparent;
-            border: 1px solid var(--primary-color);
+            padding: 8px 14px;
+            background: rgba(0, 30, 60, 0.6);
+            border: 1px solid var(--border-glow);
+            border-radius: 6px;
             color: var(--primary-color);
-            font-family: var(--font-family-title);
+            font-family: var(--font-family);
             font-size: 12px;
-            font-weight: 400;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             margin-top: 8px;
-            position: relative;
         }
         
         button:hover {
-            background: var(--border-glow);
-            color: var(--bg-color);
-            box-shadow: 0 0 15px var(--border-glow);
+            background: rgba(0, 200, 255, 0.15);
+            border-color: var(--primary-color);
         }
 
-        button.danger { border-color: var(--danger-color); color: var(--danger-color); }
-        button.danger:hover { background: var(--danger-color); color: #fff; box-shadow: 0 0 15px var(--danger-color); }
+        button.danger { 
+            border-color: var(--danger-color); 
+            color: var(--danger-color); 
+        }
+        button.danger:hover { 
+            background: rgba(255, 54, 93, 0.15);
+        }
         
         #collisionAlert {
-            background: linear-gradient(135deg, rgba(255, 82, 82, 0.1), rgba(255, 82, 82, 0.2));
-            border: 2px solid var(--danger-color);
-            padding: 15px;
+            background: var(--panel-bg);
+            border: 1px solid var(--danger-color);
+            border-radius: 8px;
+            padding: 16px 20px;
             display: none;
-            box-shadow: 0 0 20px var(--danger-color);
+            backdrop-filter: blur(6px);
         }
 
         #collisionAlert.active { display: block; }
 
         #collisionAlert .alert-title {
-            font-family: var(--font-family-title);
+            font-family: var(--font-family);
             color: var(--danger-color);
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
             text-align: center;
             animation: blink 1s infinite;
         }
@@ -311,35 +281,41 @@
         }
 
         .collision-info {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 10px;
+            background: rgba(0, 30, 60, 0.6);
+            border-radius: 6px;
+            padding: 12px;
             margin: 10px 0;
-            font-family: var(--font-family-ui);
+            font-family: var(--font-family);
             font-size: 12px;
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
-        .collision-info-value { color: var(--success-color); font-weight: 700; }
+        .collision-info-value { color: var(--primary-color); font-weight: 700; }
 
         #logConsole {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 30, 60, 0.6);
             border: 1px solid var(--border-color);
+            border-radius: 6px;
             padding: 12px;
             height: 250px;
             overflow-y: auto;
-            font-family: var(--font-family-ui);
+            font-family: var(--font-family);
             font-size: 11px;
             line-height: 1.6;
         }
         
         .log-timestamp { color: var(--primary-color); }
-        .log-success { color: var(--success-color); }
-        .log-info { color: #87cefa; }
-        .log-warning { color: var(--warning-color); }
+        .log-success { color: var(--primary-color); }
+        .log-info { color: var(--text-color); }
+        .log-warning { color: var(--primary-color); }
         .log-danger { color: var(--danger-color); }
         
-        .stats, .collision-info { border-left: 3px solid var(--primary-color); }
-        .stat-value { color: var(--success-color); font-weight: 700; font-size: 14px; }
+        .stats, .collision-info { 
+            border-left: 2px solid var(--primary-color); 
+            background: rgba(0, 30, 60, 0.6);
+            border-radius: 6px;
+        }
+        .stat-value { color: var(--primary-color); font-weight: 700; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -405,7 +381,7 @@
                     <button id="speed100x">100x</button>
                     <button id="speed1000x">1000x</button>
                 </div>
-                <div style="text-align: center; margin-top: 15px; font-family: var(--font-family-ui); font-size: 14px; color: var(--primary-color);">
+                <div style="text-align: center; margin-top: 15px; font-family: var(--font-family); font-size: 13px; color: var(--primary-color);">
                     SIMULATION RATE: <span id="timeDisplay">1x</span>
                 </div>
             </div>
@@ -487,7 +463,7 @@
                         <span class="stat-value" id="dataPoints">0</span>
                     </div>
                 </div>
-                <div id="dataLog" style="font-size: 10px; margin-top: 10px; font-family:var(--font-family-ui)"></div>
+                <div id="dataLog" style="font-size: 10px; margin-top: 10px; font-family:var(--font-family)"></div>
                 <button id="clearData" class="danger" style="margin-top: 10px;">Clear Training Data</button>
             </div>
         </div>
