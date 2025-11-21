@@ -156,6 +156,34 @@ const Landing = ({ onInitialize }) => {
                         <span className="material-symbols-outlined">arrow_forward</span>
                     </motion.button>
 
+                    <motion.button
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 1.7, duration: 0.5 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => window.open('/index5.html', '_blank')}
+                        style={{
+                            padding: '16px 40px',
+                            fontSize: '1.1rem',
+                            fontWeight: 500,
+                            borderRadius: '30px',
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            color: 'white',
+                            cursor: 'pointer',
+                            boxShadow: '0 4px 15px rgba(255, 255, 255, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px',
+                            marginBottom: '40px',
+                            backdropFilter: 'blur(10px)'
+                        }}
+                    >
+                        Launch Simulation
+                        <span className="material-symbols-outlined">play_circle</span>
+                    </motion.button>
+
                     {/* Stats below button */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
