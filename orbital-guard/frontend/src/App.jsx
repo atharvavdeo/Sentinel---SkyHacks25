@@ -16,6 +16,7 @@ import HazardList from './components/UI/HazardList';
 import ManeuverSuggestion from './components/UI/ManeuverSuggestion';
 import CollisionStrip from './components/UI/CollisionStrip';
 import Landing from './components/UI/Landing';
+import LoadingScreen from './components/UI/LoadingScreen';
 import TimeSlider from './components/UI/TimeSlider';
 import { useSatelliteData } from './hooks/useSatelliteData';
 import SortDropdown from './components/UI/SortDropdown';
@@ -108,6 +109,7 @@ class ErrorBoundary extends Component {
 }
 
 function App() {
+    const [showLoadingScreen, setShowLoadingScreen] = useState(true);
     const [initialized, setInitialized] = useState(false);
     const [showDebris, setShowDebris] = useState(false);
     const [selectedSat, setSelectedSat] = useState(null);
@@ -279,7 +281,9 @@ function App() {
 
     return (
         <ErrorBoundary>
-            {!initialized ? (
+            {showLoadingScreen ? (
+                <LoadingScreen onComplete={() => setShowLoadingScreen(false)} />
+            ) : !initialized ? (
                 <Landing
                     onInitialize={() => setInitialized(true)}
                     onToggleDebris={setShowDebris}

@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: sentinel-backend
+    env: node
+    region: oregon
+    plan: free
+    rootDir: orbital-guard/backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 22.16.0
